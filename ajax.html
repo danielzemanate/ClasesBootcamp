@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1 id="nombre"></h1>
+        <p id= "id"></p>
+    </div>
+    <script>
+        var usuario;
+        function traerDatos(url = "https://api.football-data.org/v2/teams/18", callback){
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState==4 && this.status==200){
+                    //console.log(JSON.parse(this.responseText));
+                    callback(JSON.parse(this.responseText));
+                //usuario = JSON.parse(this.responseText);
+                //document.getElementById("nombre").innerHTML = usuario.name;
+                //document.getElementById("id").innerHTML = usuario.id;
+
+                }
+
+            };
+            //xhttp.open("GET", "https://swapi.co/api/people1");
+           // xhttp.send();
+            xhttp.open("GET",url);
+            xhttp.setRequestHeader('X-Auth-Token','405c674479704b4e8b55a5dfdf47e096');
+            xhttp.send();
+        }
+
+        function traerEquipo(equipo){
+            document.getElementById("nombre").innerHTML = "El nombre del equipo aleman es: " + equipo.name;
+            document.getElementById("id").innerHTML = "Fue fundado en: " + equipo.founded;
+        }
+
+        function get(){
+            traerDatos("https://api.football-data.org/v2/teams/18", traerEquipo);
+        }
+    </script>
+</body>
+</html>
